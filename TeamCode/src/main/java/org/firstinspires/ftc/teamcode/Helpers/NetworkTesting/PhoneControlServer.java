@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.NetworkTesting;
+package org.firstinspires.ftc.teamcode.Helpers.NetworkTesting;
 
 /*
     use this with the Clients.DesktopControlClient class

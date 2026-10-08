@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.RobotFunctions;
+package org.firstinspires.ftc.teamcode.Helpers.RobotFunctions;
 
 import java.util.function.BooleanSupplier;
 

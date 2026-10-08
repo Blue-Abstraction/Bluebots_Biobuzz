@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.NetworkTesting;
+package org.firstinspires.ftc.teamcode.Helpers.NetworkTesting;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;

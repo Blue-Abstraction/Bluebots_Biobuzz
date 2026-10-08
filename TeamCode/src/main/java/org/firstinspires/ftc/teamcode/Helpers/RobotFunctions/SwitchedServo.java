@@ -43,6 +43,8 @@ public class SwitchedServo {
     private boolean isUsingList() { return positions != null; }
 
     public void primaryPos() {
+        atPrimary = true;
+        listIndex = primaryPosIndex;
         if (isUsingList()) {
             servo1.setPosition(positions.get(primaryPosIndex));
             if (servo2 != null) {
@@ -57,6 +59,8 @@ public class SwitchedServo {
     }
 
     public void secondaryPos() {
+        atPrimary = false;
+        listIndex = secondaryPosIndex;
         if (isUsingList()) {
             servo1.setPosition(positions.get(secondaryPosIndex));
             if (servo2 != null) {
@@ -70,25 +74,32 @@ public class SwitchedServo {
         }
     }
 
+    /*
+     * BUG FIXES:
+     *  1. List mode: "index + 1 % size" is "index + (1 % size)" = index + 1 because % runs before +,
+     *     so it never wrapped around and crashed (IndexOutOfBounds) at the last position.
+     *  2. Two-servo mode: servo1's check called secondaryPos(), which moves BOTH servos; then servo2's
+     *     check saw servo2 at pos2 and called primaryPos(), moving both straight back. Net effect:
+     *     quickSwitch() did nothing. Now servo1 alone decides, and both servos follow.
+     * Also: we remember the current position ourselves instead of comparing doubles from getPosition().
+     */
+    private boolean atPrimary = true;
+    private int listIndex = -1;
+
     public void quickSwitch() {
         if (isUsingList()) {
-            servo1.setPosition(positions.get(positions.indexOf(servo1.getPosition()) + 1 % positions.size()));
+            if (listIndex < 0) listIndex = primaryPosIndex;
+            listIndex = (listIndex + 1) % positions.size();
+            double target = positions.get(listIndex);
+            servo1.setPosition(target);
             if (servo2 != null) {
-                servo2.setPosition(positions.get(positions.indexOf(servo2.getPosition()) + 1 % positions.size()));
+                servo2.setPosition(target);
             }
         } else {
-            if (servo1.getPosition() == pos1) {
+            if (atPrimary) {
                 secondaryPos();
             } else {
                 primaryPos();
-            }
-
-            if (servo2 != null) {
-                if (servo2.getPosition() == pos1) {
-                    secondaryPos();
-                } else {
-                    primaryPos();
-                }
             }
         }
     }

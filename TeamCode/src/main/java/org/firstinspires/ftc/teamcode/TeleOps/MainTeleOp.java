@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.TeleOps;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 
 import org.firstinspires.ftc.teamcode.Constants.ShooterConstants;
 import org.firstinspires.ftc.teamcode.Robot;
@@ -54,35 +55,6 @@ public abstract class MainTeleOp extends OpMode {
                 gamepad1.left_stick_x,
                 gamepad1.right_stick_x);
         robot.driveTrain.setSlowMode(gamepad1.left_bumper);
-
-        if (gamepad2.right_trigger > 0.3) {
-            robot.intake.setState(Intake.State.IN);
-        } else if (gamepad2.left_trigger > 0.3) {
-            robot.intake.setState(Intake.State.OUT);
-        } else {
-            robot.intake.setState(Intake.State.OFF);
-        }
-
-        // xWasPressed() is true for exactly ONE loop per press — no Toggle class or delay timer needed.
-        if (gamepad2.bWasPressed()) {
-            flywheelOn = !flywheelOn;
-        }
-        if (gamepad2.dpadUpWasPressed()) {
-            flywheelTargetTps += ShooterConstants.TPS_STEP;
-        }
-        if (gamepad2.dpadDownWasPressed()) {
-            flywheelTargetTps = Math.max(0, flywheelTargetTps - ShooterConstants.TPS_STEP);
-        }
-        robot.flywheel.setTarget(flywheelOn ? flywheelTargetTps : 0);
-
-        if (gamepad2.aWasPressed()) {
-            boolean override = gamepad2.right_bumper;
-            if (robot.flywheel.atSpeed() || override || !robot.flywheel.isConnected()) {
-                robot.feeder.push();
-            } else {
-                gamepad2.rumble(200); // tell the operator "not ready yet"
-            }
-        }
 
         // ---------- 2. One update: read sensors, run control, write hardware ----------
         robot.update();

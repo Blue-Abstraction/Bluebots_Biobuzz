@@ -17,7 +17,10 @@ public final class HardwareNames {
     public static final String BACK_RIGHT  = "BRW";
 
     // Mechanisms
-    public static final String INTAKE   = "intakeMotor";
+    // Intake: two motors, each spinning a pair of opposite sides
+    public static final String INTAKE_FRONT_BACK = "intakeFrontBack";
+    public static final String INTAKE_LEFT_RIGHT = "intakeLeftRight";
+
     public static final String FLYWHEEL = "FlywheelMotor";
     public static final String FEEDER_RIGHT = "servor";
     public static final String FEEDER_LEFT  = "servol";

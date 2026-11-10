@@ -24,4 +24,6 @@ public final class HardwareNames {
     public static final String FLYWHEEL = "FlywheelMotor";
     public static final String FEEDER_RIGHT = "servor";
     public static final String FEEDER_LEFT  = "servol";
+
+    public static final String DYE_ROTOR = "dyeRotor";
 }

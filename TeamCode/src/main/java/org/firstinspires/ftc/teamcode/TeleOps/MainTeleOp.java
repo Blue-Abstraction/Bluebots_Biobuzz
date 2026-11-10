@@ -5,25 +5,10 @@ import com.qualcomm.robotcore.hardware.CRServo;
 
 import org.firstinspires.ftc.teamcode.Constants.ShooterConstants;
 import org.firstinspires.ftc.teamcode.Robot;
+import org.firstinspires.ftc.teamcode.Subsystems.DyeRotor;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Util.Alliance;
 import org.firstinspires.ftc.teamcode.Util.PoseStorage;
-
-/**
- * The competition TeleOp, written the way the top teams write theirs:
- *
- *   - It's an iterative OpMode (init / loop / stop), not a LinearOpMode with while(),
- *     so there's no way to accidentally block the loop with sleep().
- *   - The OpMode only maps buttons to INTENTIONS. All motor math lives in the subsystems.
- *   - One robot.update() per loop does the bulk read + all control + all writes.
- *   - Blue and Red are tiny subclasses (BlueTeleOp / RedTeleOp) that only pass the alliance.
- *
- * Controls (change freely):
- *   gamepad1  left stick = drive/strafe, right stick X = turn, left bumper (hold) = slow mode
- *   gamepad2  right trigger = intake in, left trigger = intake out
- *             B = flywheel on/off, dpad up/down = flywheel speed, A = feed one (only when at speed)
- *             right bumper + A = feed even if not at speed (override)
- */
 public abstract class MainTeleOp extends OpMode {
     protected Robot robot;
     private boolean flywheelOn = false;
@@ -55,6 +40,10 @@ public abstract class MainTeleOp extends OpMode {
                 gamepad1.left_stick_x,
                 gamepad1.right_stick_x);
         robot.driveTrain.setSlowMode(gamepad1.left_bumper);
+
+        if (gamepad1.xWasPressed()) {
+            robot.dyeRotor.toggle();
+        }
 
         // ---------- 2. One update: read sensors, run control, write hardware ----------
         robot.update();

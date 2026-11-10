@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Constants.RobotConstants;
 import org.firstinspires.ftc.teamcode.Subsystems.DriveTrain;
+import org.firstinspires.ftc.teamcode.Subsystems.DyeRotor;
 import org.firstinspires.ftc.teamcode.Subsystems.Flywheel;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.Subsystem;
@@ -36,6 +37,7 @@ public class Robot {
     public final DriveTrain driveTrain;
     public final Intake intake;
     public final Flywheel flywheel;
+    public final DyeRotor dyeRotor;
     private final List<Subsystem> subsystems = new ArrayList<>();
     private final List<LynxModule> hubs;
     private final VoltageSensor voltageSensor;
@@ -61,6 +63,7 @@ public class Robot {
         driveTrain = register(new DriveTrain(hardwareMap));
         intake     = register(new Intake(hardwareMap));
         flywheel   = register(new Flywheel(hardwareMap, this::getVoltage));
+        dyeRotor   = register(new DyeRotor(hardwareMap, this::getVoltage));
     }
 
     private <T extends Subsystem> T register(T subsystem) {

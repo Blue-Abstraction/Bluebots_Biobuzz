@@ -44,6 +44,9 @@ public abstract class MainTeleOp extends OpMode {
         if (gamepad1.xWasPressed()) {
             robot.dyeRotor.toggle();
         }
+        if (gamepad1.bWasPressed()) {
+            robot.intake.toggleIn();
+        }
 
         // ---------- 2. One update: read sensors, run control, write hardware ----------
         robot.update();

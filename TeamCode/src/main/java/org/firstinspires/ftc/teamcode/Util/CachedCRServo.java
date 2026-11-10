@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Util;
 
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 /**
  * CachedMotor's twin for continuous rotation servos.
@@ -31,5 +32,9 @@ public class CachedCRServo {
 
     public CRServo raw() {
         return servo;
+    }
+
+    public void setReversed(boolean reversed) {
+        servo.setDirection(reversed ? DcMotorSimple.Direction.REVERSE : DcMotorSimple.Direction.FORWARD);
     }
 }

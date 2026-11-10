@@ -12,6 +12,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.DyeRotor;
 import org.firstinspires.ftc.teamcode.Subsystems.Flywheel;
 import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.Subsystem;
+import org.firstinspires.ftc.teamcode.Subsystems.Turret;
 import org.firstinspires.ftc.teamcode.Util.Alliance;
 
 import java.util.ArrayList;
@@ -38,6 +39,9 @@ public class Robot {
     public final Intake intake;
     public final Flywheel flywheel;
     public final DyeRotor dyeRotor;
+
+    public final Turret turret;
+
     private final List<Subsystem> subsystems = new ArrayList<>();
     private final List<LynxModule> hubs;
     private final VoltageSensor voltageSensor;
@@ -64,6 +68,7 @@ public class Robot {
         intake     = register(new Intake(hardwareMap));
         flywheel   = register(new Flywheel(hardwareMap, this::getVoltage));
         dyeRotor   = register(new DyeRotor(hardwareMap, this::getVoltage));
+        turret     = register(new Turret(hardwareMap, this::getVoltage));
     }
 
     private <T extends Subsystem> T register(T subsystem) {

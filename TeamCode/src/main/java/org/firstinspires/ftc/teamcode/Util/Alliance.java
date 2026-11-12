@@ -1,15 +1,16 @@
 package org.firstinspires.ftc.teamcode.Util;
 
+import com.pedropathing.math.Pose;
+
+import org.firstinspires.ftc.teamcode.Constants.DriveConstants;
 import org.firstinspires.ftc.teamcode.Constants.RobotConstants;
 
 /**
- * Write every autonomous path ONCE for blue, then mirror it for red.
- * Every top team with public code did this instead of keeping two copies of each auto
- * (23641 Flipper, 772 MirrorHelper, 11138 PoseMirror, 14450 AllianceColor).
+ * Write every position ONCE for blue, then mirror it for red.
  *
- * The mirror line below assumes the field is mirrored left/right (across x = 72).
- * CHECK THIS against the BIOBUZZ field drawing and your Pedro coordinate system
- * before trusting it — if the field is rotationally symmetric instead, change mirrorX/Y/heading.
+ * The mirror below assumes the field is mirrored left/right (across x = 72).
+ * CHECK THIS against the BIOBUZZ field drawing and Pedro's coordinate system
+ * before trusting it — if the field is rotationally symmetric instead, change x/y/heading.
  */
 public enum Alliance {
     BLUE,
@@ -30,5 +31,15 @@ public enum Alliance {
     /** Heading in radians. */
     public double heading(double blueHeading) {
         return isRed() ? Math.PI - blueHeading : blueHeading;
+    }
+
+    /** A blue-side pose, mirrored if this is red. */
+    public Pose pose(double blueX, double blueY, double blueHeading) {
+        return new Pose(x(blueX), y(blueY), heading(blueHeading));
+    }
+
+    /** Heading (radians) the robot has when pointing straight away from this alliance's drivers. */
+    public double driverForwardHeading() {
+        return isRed() ? DriveConstants.RED_DRIVER_FORWARD_HEADING : DriveConstants.BLUE_DRIVER_FORWARD_HEADING;
     }
 }

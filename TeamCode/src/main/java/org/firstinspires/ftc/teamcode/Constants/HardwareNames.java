@@ -27,4 +27,6 @@ public final class HardwareNames {
     public static final String TURRET = "turret";
 
     public static final String HOOD = "hood";
+
+    public static final String OTOS = "otos";
 }

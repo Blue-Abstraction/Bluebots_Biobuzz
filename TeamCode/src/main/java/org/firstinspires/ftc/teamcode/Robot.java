@@ -68,7 +68,7 @@ public class Robot {
         intake     = register(new Intake(hardwareMap));
         flywheel   = register(new Flywheel(hardwareMap, this::getVoltage));
         dyeRotor   = register(new DyeRotor(hardwareMap, this::getVoltage));
-        turret     = register(new Turret(hardwareMap, this::getVoltage));
+        turret     = register(new Turret(hardwareMap));
     }
 
     private <T extends Subsystem> T register(T subsystem) {

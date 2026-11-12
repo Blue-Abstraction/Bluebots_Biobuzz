@@ -25,4 +25,6 @@ public final class HardwareNames {
     public static final String DYE_ROTOR = "dyeRotor";
 
     public static final String TURRET = "turret";
+
+    public static final String HOOD = "hood";
 }

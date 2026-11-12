@@ -5,22 +5,16 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Constants.HardwareNames;
-import org.firstinspires.ftc.teamcode.Constants.RobotConstants;
 import org.firstinspires.ftc.teamcode.Constants.TurretConstants;
 import org.firstinspires.ftc.teamcode.Util.CachedCRServo;
-
-import java.util.function.DoubleSupplier;
-
 public class Turret implements Subsystem {
 
     public enum State { SPIN_CW, SPIN_CCW, OFF }
     private State state = State.OFF;
     private double power = 0;
-    private final DoubleSupplier batteryVoltage;
 
     private final CachedCRServo servo;
-    public Turret(HardwareMap hw, DoubleSupplier batteryVoltage) {
-        this.batteryVoltage = batteryVoltage;
+    public Turret(HardwareMap hw) {
         CRServo raw = hw.tryGet(CRServo.class, HardwareNames.TURRET);
         if (raw != null) {
             servo = new CachedCRServo(raw, .01);
@@ -33,26 +27,27 @@ public class Turret implements Subsystem {
     public void setState(State state) {
         this.state = state;
     }
+
+    public State getState() {
+        return state;
+    }
     @Override
     public void periodic() {
         if (servo == null) return;
 
         switch (state) {
             case SPIN_CW:
-                power = TurretConstants.SPIN_POWER_CW;
+                power = TurretConstants.SPIN_POWER;
                 break;
             case SPIN_CCW:
-                power = TurretConstants.SPIN_POWER_CCW;
+                power = -TurretConstants.SPIN_POWER;
                 break;
             case OFF:
             default:
                 power = 0;
+                break;
         }
 
-        double volts = batteryVoltage.getAsDouble();
-        if (power != 0 && volts > 1) {
-            power *= RobotConstants.NOMINAL_VOLTAGE / volts;
-        }
         servo.setPower(power);
     }
 
@@ -73,6 +68,7 @@ public class Turret implements Subsystem {
     public void addTelemetry(Telemetry t) {
         if (!isConnected()) {
             t.addData("Turret", "NOT CONNECTED");
+            return;
         }
         t.addData("Turret", "%s power %.2f", state, power);
     }

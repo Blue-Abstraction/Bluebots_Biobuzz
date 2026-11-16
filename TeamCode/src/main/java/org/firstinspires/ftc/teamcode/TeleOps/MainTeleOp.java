@@ -2,14 +2,11 @@ package org.firstinspires.ftc.teamcode.TeleOps;
 
 import com.pedropathing.math.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.CRServo;
 
 import org.firstinspires.ftc.teamcode.Constants.DriveConstants;
 import org.firstinspires.ftc.teamcode.Constants.ShooterConstants;
 import org.firstinspires.ftc.teamcode.Robot;
-import org.firstinspires.ftc.teamcode.Subsystems.DyeRotor;
 import org.firstinspires.ftc.teamcode.Subsystems.Hood;
-import org.firstinspires.ftc.teamcode.Subsystems.Intake;
 import org.firstinspires.ftc.teamcode.Subsystems.Turret;
 import org.firstinspires.ftc.teamcode.Util.Alliance;
 import org.firstinspires.ftc.teamcode.Util.PoseStorage;
@@ -26,21 +23,14 @@ public abstract class MainTeleOp extends OpMode {
         robot = new Robot(hardwareMap, alliance());
 
         if (PoseStorage.valid) {
-            telemetry.addData("Start pose from auto", "(%.1f, %.1f, %.0f°)",
-                    PoseStorage.xInches, PoseStorage.yInches, Math.toDegrees(PoseStorage.headingRadians));
-
-            if (PoseStorage.valid) {
-                robot.driveTrain.setPose(new Pose(
-                        PoseStorage.xInches, PoseStorage.yInches, PoseStorage.headingRadians));
-                PoseStorage.clear();
-            } else {
-                robot.driveTrain.setPose(alliance().pose(
-                        DriveConstants.DEFAULT_START_X,
-                        DriveConstants.DEFAULT_START_Y,
-                        DriveConstants.DEFAULT_START_HEADING));
-            }
-
+            robot.driveTrain.setPose(new Pose(
+                    PoseStorage.xInches, PoseStorage.yInches, PoseStorage.headingRadians));
             PoseStorage.clear();
+        } else {
+            robot.driveTrain.setPose(alliance().pose(
+                    DriveConstants.DEFAULT_START_X,
+                    DriveConstants.DEFAULT_START_Y,
+                    DriveConstants.DEFAULT_START_HEADING));
         }
         telemetry.addLine("Initialized. Anything marked NOT CONNECTED is missing from the config.");
         robot.addTelemetry(telemetry);

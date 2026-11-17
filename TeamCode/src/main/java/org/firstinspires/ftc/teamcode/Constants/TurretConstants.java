@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.Constants;
 
+import com.bylazar.configurables.annotations.Configurable;
+
+@Configurable
 public class TurretConstants {
     private TurretConstants() {}
 

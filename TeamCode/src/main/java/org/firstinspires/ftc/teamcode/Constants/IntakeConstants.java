@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.Constants;
 
-// TODO: add @Configurable once Panels is installed (see RobotConstants).
+import com.bylazar.configurables.annotations.Configurable;
+
+@Configurable
 public class IntakeConstants {
     /** Motor power for intaking and for spitting out. */
     public static double IN_POWER = 1.0;

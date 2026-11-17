@@ -1,13 +1,15 @@
 package org.firstinspires.ftc.teamcode.Constants;
 
+import com.bylazar.configurables.annotations.Configurable;
+
 /**
  * Drive settings once Pedro is tuned.
  *
  * GONE from the old version: motor directions and the write-cache tolerance.
  * Those now live in Pedro's MecanumConfig in pedro/Constants.java (the Mecanum tuner prints it for you).
  *
- * TODO: add @Configurable once Panels is installed (see RobotConstants).
  */
+@Configurable
 public class DriveConstants {
     /** Stick values smaller than this are treated as zero. */
     public static double STICK_DEADBAND = 0.05;
@@ -31,12 +33,12 @@ public class DriveConstants {
     /** When the sticks are released and the robot stops, actively hold position (resists being pushed). */
     public static boolean HOLD_WHEN_IDLE = true;
 
-    /** Where TeleOp assumes the robot starts if no auto ran (practice). Blue side; red is mirrored. PLACEHOLDER. */
+    /** Where TeleOp assumes the robot starts if no auto ran (practice). Blue side; red is calculated (see Util/Alliance). PLACEHOLDER. */
     public static double DEFAULT_START_X = 72;
     public static double DEFAULT_START_Y = 72;
     public static double DEFAULT_START_HEADING = Math.toRadians(90);
 
-    /** What heading lock aims at (e.g. a goal). Blue side; red is mirrored. PLACEHOLDER until you know the BIOBUZZ field. */
+    /** What heading lock aims at (e.g. a goal). Blue side; red is calculated (see Util/Alliance). PLACEHOLDER until you know the BIOBUZZ field. */
     public static double BLUE_TARGET_X = 12;
     public static double BLUE_TARGET_Y = 132;
 }

@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.Constants;
 
+import com.bylazar.configurables.annotations.Configurable;
+
+@Configurable
 public final class DyeRotorConstants {
     private DyeRotorConstants(){}
     public static double SPIN_POWER = 0.6;   // placeholder: tune on the robot
